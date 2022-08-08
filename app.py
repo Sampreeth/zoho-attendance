@@ -7,7 +7,14 @@ from win10toast import ToastNotifier
 from datetime import datetime
 import time
 
+# ############################# Constants Config #######################################
+EMAIL_ID = "sam@wavelabs.ai"
+PASSWORD = "nuvafiw*97"
 
+
+# #####################################################################################
+
+# ################################## Main program starts ####################################
 def showToast(title, content, duration):
     toast.show_toast(
         title,
@@ -17,9 +24,6 @@ def showToast(title, content, duration):
         threaded=True,
     )
 
-
-EMAIL_ID = "sam@wavelabs.ai"
-PASSWORD = "nuvafiw*97"
 
 chrome_options = Options()
 chrome_options.add_argument("--disable-user-media-security=true")
@@ -73,13 +77,13 @@ finally:
             # CHECK-IN
             driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
             print("checked-in")
-            showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at "+now, 20)
+            showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at " + now, 20)
 
         else:
             # CHECK-OUT
             driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
             print("checked-out")
-            showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at "+now, 20)
+            showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at " + now, 20)
 
 time.sleep(10)
 driver.close()
