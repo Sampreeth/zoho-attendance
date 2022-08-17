@@ -75,16 +75,19 @@ finally:
 
         if checkInBtnColorProp == "in CP":
             # CHECK-IN
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
             print("checked-in")
             showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at " + now, 20)
 
         else:
             # CHECK-OUT
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
             print("checked-out")
             showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at " + now, 20)
+    time.sleep(5)
+    logoutBtn = driver.find_element_by_class_name("ZPD_Top_Att_Stat")
+    logoutBtn.click()
 
-time.sleep(10)
+time.sleep(5)
 driver.close()
 driver.quit()

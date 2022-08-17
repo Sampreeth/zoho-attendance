@@ -1,2 +1,2 @@
 @echo off
-python app.py
+"C:\Program Files\Python310\python.exe" app.py
