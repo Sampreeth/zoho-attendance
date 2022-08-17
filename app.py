@@ -10,6 +10,7 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 
+
 # ############################# Constants Config #######################################
 EMAIL_ID = "sam@wavelabs.ai"
 PASSWORD = "nuvafiw*97"
@@ -97,14 +98,12 @@ finally:
 
         if checkInBtnColorProp == "in CP":
             # CHECK-IN
-            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
-            print("checked-in")
+            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
             showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at " + now, 20)
             sendMail("Attendance checkin at " + now, "Attendance for wavelabs was checkedin at " + now)
         else:
             # CHECK-OUT
-            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
-            print("checked-out")
+            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
             showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at " + now, 20)
             sendMail("Attendance checkout at " + now, "Successfully Attendance for wavelabs was checkedout at " + now)
     # Logout
