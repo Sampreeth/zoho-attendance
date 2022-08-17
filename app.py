@@ -8,16 +8,21 @@ from datetime import datetime
 import time
 import smtplib
 import ssl
+import os
+from os.path import join, dirname
 from email.message import EmailMessage
+import dotenv
 
+dotenv_path = join(dirname(__file__), '.env')
+dotenv.load_dotenv(dotenv_path)
 
 # ############################# Constants Config #######################################
-EMAIL_ID = "sam@wavelabs.ai"
-PASSWORD = "nuvafiw*97"
+EMAIL_ID = os.environ.get("EMAIL_ID")
+PASSWORD = os.environ.get("PASSWORD")
 
-BOT_EMAIL = "rpabot91@gmail.com"
-BOT_PASSWORD = "quzhqylhrqrldsaz"
-RECEIVER_EMAIL = "sam@wavelabs.ai"
+BOT_EMAIL = os.environ.get("BOT_EMAIL")
+BOT_PASSWORD = os.environ.get("BOT_PASSWORD")
+RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
 
 
 # #####################################################################################
@@ -98,12 +103,12 @@ finally:
 
         if checkInBtnColorProp == "in CP":
             # CHECK-IN
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
             showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at " + now, 20)
             sendMail("Attendance checkin at " + now, "Attendance for wavelabs was checkedin at " + now)
         else:
             # CHECK-OUT
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
             showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at " + now, 20)
             sendMail("Attendance checkout at " + now, "Successfully Attendance for wavelabs was checkedout at " + now)
     # Logout
