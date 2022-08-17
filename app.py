@@ -6,10 +6,17 @@ from selenium.webdriver.chrome.options import Options
 from win10toast import ToastNotifier
 from datetime import datetime
 import time
+import smtplib
+import ssl
+from email.message import EmailMessage
 
 # ############################# Constants Config #######################################
 EMAIL_ID = "sam@wavelabs.ai"
 PASSWORD = "nuvafiw*97"
+
+BOT_EMAIL = "rpabot91@gmail.com"
+BOT_PASSWORD = "quzhqylhrqrldsaz"
+RECEIVER_EMAIL = "sam@wavelabs.ai"
 
 
 # #####################################################################################
@@ -24,6 +31,21 @@ def showToast(title, content, duration):
         threaded=True,
     )
 
+
+def sendMail(sub, message):
+    em = EmailMessage()
+    em['From'] = BOT_EMAIL
+    em['To'] = RECEIVER_EMAIL
+    em['Subject'] = sub
+    em.set_content(message)
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+        smtp.login(BOT_EMAIL, BOT_PASSWORD)
+        smtp.sendmail(BOT_EMAIL, RECEIVER_EMAIL, em.as_string())
+
+
+# ##########################################################################################
 
 chrome_options = Options()
 chrome_options.add_argument("--disable-user-media-security=true")
@@ -75,15 +97,16 @@ finally:
 
         if checkInBtnColorProp == "in CP":
             # CHECK-IN
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(true)")
             print("checked-in")
             showToast("Attendance Checked-in", "Attendance for wavelabs was checkedin at " + now, 20)
-
+            sendMail("Attendance checkin at " + now, "Attendance for wavelabs was checkedin at " + now)
         else:
             # CHECK-OUT
-            driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
+            #driver.execute_script("Attendance.Dashboard.CurrStatus.updateCheckOut(false)")
             print("checked-out")
             showToast("Attendance Checked-out", "Attendance for wavelabs was checkedout at " + now, 20)
+            sendMail("Attendance checkout at " + now, "Successfully Attendance for wavelabs was checkedout at " + now)
     # Logout
     time.sleep(2)
     userImageBtn = driver.find_element_by_id("zpeople_userimage")
